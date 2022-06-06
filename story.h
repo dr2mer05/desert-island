@@ -6,7 +6,7 @@ using namespace std;
 
 void story_init();
 
-// ½ºÅä¸® ÇÔ¼ö
+// ìŠ¤í† ë¦¬ í•¨ìˆ˜
 list<char> story_intro();
 list<char> story_begin();
 list<char> story1();
@@ -26,11 +26,10 @@ list<char> story2_2();
 list<char> story3();
 list<char> story3_1();
 list<char> story3_1_m();
+list<char> story3_1_m_0();
 list<char> story3_1_m_1();
 list<char> story3_1_m_2();
 list<char> story3_1_m_3();
-list<char> story3_1_m_4();
-list<char> story3_1_m_5();
 
 list<char> story3_1_e();
 list<char> story3_1_e_1();
