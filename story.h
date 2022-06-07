@@ -7,16 +7,17 @@ using namespace std;
 void story_init();
 
 // 스토리 함수
-list<char> story_intro();
+void story_intro();
 list<char> story_begin();
 list<char> story1();
 list<char> story1_1();
-list<char> story1_2();
 list<char> story1_1_1();
+list<char> story1_1_1_1();
+list<char> story1_1_1_2();
 list<char> story1_1_2();
+list<char> story1_1_3();
+list<char> story1_2();
 list<char> story1_2_1();
-list<char> story1_2_1_1();
-list<char> story1_2_1_2();
 list<char> story1_2_2();
 
 list<char> story2();
@@ -49,3 +50,4 @@ list<char> story3_3_m();
 
 list<char> story3_3_e_1();
 list<char> story3_3_e_2();
+void story_e();
