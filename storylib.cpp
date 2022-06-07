@@ -6,20 +6,21 @@
 #include <string>
 
 #include "storylib.h"
+#include "util.h"
+#include "design.h"
 
 using namespace std;
 
-const string DELIMETER = "_";			// ½ºÅä¸® ÇÔ¼ö ÀúÀå/·Îµå ÇÒ ¶§ »ç¿ëÇÏ´Â Å°ÀÇ ¿¬°á ¹®ÀÚ
+const string DELIMETER = "_";			// ìŠ¤í† ë¦¬ í•¨ìˆ˜ ì €ì¥/ë¡œë“œ í•  ë•Œ ì‚¬ìš©í•˜ëŠ” í‚¤ì˜ ì—°ê²° ë¬¸ì
 
 /////////////////////////////////////////////////
-// Àü¿ªº¯¼ö start
+// ì „ì—­ë³€ìˆ˜ start
 
-status M;								// »óÅÂ
-inventory I;							// ÀÎº¥Åä¸®
-map<string, list<char>(*)()> storyMap;	// ½ºÅä¸® Á¤ÀÇ ¸Ê
-list<char> storyPathList;				// ½ºÅä¸® ÁøÇà ¼±ÅÃ ¸®½ºÆ®
+inventory I;							// ì¸ë²¤í† ë¦¬
+map<string, list<char>(*)()> storyMap;	// ìŠ¤í† ë¦¬ ì •ì˜ ë§µ
+list<char> storyPathList;				// ìŠ¤í† ë¦¬ ì§„í–‰ ì„ íƒ ë¦¬ìŠ¤íŠ¸
 
-// Àü¿ªº¯¼ö end
+// ì „ì—­ë³€ìˆ˜ end
 /////////////////////////////////////////////////
 
 
@@ -29,22 +30,22 @@ void addStory(string storyKey, STORY_FUNC storyFunc)
 }
 
 /*
-	½ºÅä¸® ÁøÇà ¼±ÅÃ ¸®½ºÆ®(storyPathList)¸¦ ÀÌ¿ëÇÏ¿©
-	½ºÅä¸® ÇÔ¼öÀÇ Å°¸¦ »ı¼º
-	storyPathList¿¡ "1, 2, 1" ·Î ¼±ÅÃÇÏ¿© ÁøÇàÇÏ¿© ¿Ô´Ù¸é Å°´Â "1_2_1" ·Î »ı¼º
+	ìŠ¤í† ë¦¬ ì§„í–‰ ì„ íƒ ë¦¬ìŠ¤íŠ¸(storyPathList)ë¥¼ ì´ìš©í•˜ì—¬
+	ìŠ¤í† ë¦¬ í•¨ìˆ˜ì˜ í‚¤ë¥¼ ìƒì„±
+	storyPathListì— "1, 2, 1" ë¡œ ì„ íƒí•˜ì—¬ ì§„í–‰í•˜ì—¬ ì™”ë‹¤ë©´ í‚¤ëŠ” "1_2_1" ë¡œ ìƒì„±
 */
 string buildStoryKey()
 {
 	string pathStr;
-	// iterator(¹İº¹ÀÚ) »ı¼º
+	// iterator(ë°˜ë³µì) ìƒì„±
 	for (list<char>::iterator iter = storyPathList.begin(); iter != storyPathList.end(); iter++)
 	{
-		// Ã³À½ÀÌ¸é delimeter ¾øÀÌ
+		// ì²˜ìŒì´ë©´ delimeter ì—†ì´
 		if (pathStr.empty())
 		{
 			pathStr += string(1, *iter);
 		}
-		// ±× ´ÙÀ½ºÎÅÍ´Â delimeter Æ÷ÇÔÇÏ¿© ¿¬°á
+		// ê·¸ ë‹¤ìŒë¶€í„°ëŠ” delimeter í¬í•¨í•˜ì—¬ ì—°ê²°
 		else
 		{
 			pathStr += DELIMETER + string(1, *iter);
@@ -55,7 +56,7 @@ string buildStoryKey()
 }
 
 /*
-	¼±ÅÃÇÑ ¿É¼ÇÀ» ½ºÅä¸® ÁøÇà ¼±ÅÃ ¸®½ºÆ®¿¡ ³Ö´Â´Ù.
+	ì„ íƒí•œ ì˜µì…˜ì„ ìŠ¤í† ë¦¬ ì§„í–‰ ì„ íƒ ë¦¬ìŠ¤íŠ¸ì— ë„£ëŠ”ë‹¤.
 */
 void pushStoryPath(char option)
 {
@@ -63,11 +64,11 @@ void pushStoryPath(char option)
 }
 
 /*
-	½ºÅä¸® ÁøÇà ¼±ÅÃ ¸®½ºÆ®ÀÇ ¸¶Áö¸· ¿É¼ÇÀ» ¸®½ºÆ®¿¡ ¹İÈ¯ÇÑ ÈÄ »èÁ¦ÇÑ´Ù.
+	ìŠ¤í† ë¦¬ ì§„í–‰ ì„ íƒ ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ ì˜µì…˜ì„ ë¦¬ìŠ¤íŠ¸ì— ë°˜í™˜í•œ í›„ ì‚­ì œí•œë‹¤.
 */
 char popStoryPath()
 {
-	if (storyPathList.size() > 0) 
+	if (storyPathList.size() > 0)
 	{
 		char option = storyPathList.back();
 		storyPathList.pop_back();
@@ -82,7 +83,7 @@ char popStoryPath()
 void clearStoryPath()
 {
 	storyPathList.clear();
-} 
+}
 
 void rebuildStoryPath(list<char> list)
 {
@@ -90,9 +91,9 @@ void rebuildStoryPath(list<char> list)
 }
 
 /*
-	½ºÅä¸® ÇÔ¼ö¸¦ È£Ãâ
-	buildStoryKey¸¦ ÀÌ¿ëÇÏ¿© ´ÙÀ½ ÁøÇà ½ºÅä¸® Å°¸¦ »ı¼ºÇÏ°í
-	storyMap¿¡¼­ ÇØ´çÇÏ´Â ÇÔ¼ö¸¦ È£Ãâ
+	ìŠ¤í† ë¦¬ í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
+	buildStoryKeyë¥¼ ì´ìš©í•˜ì—¬ ë‹¤ìŒ ì§„í–‰ ìŠ¤í† ë¦¬ í‚¤ë¥¼ ìƒì„±í•˜ê³ 
+	storyMapì—ì„œ í•´ë‹¹í•˜ëŠ” í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
 */
 list<char> callStoryFunc()
 {
@@ -100,18 +101,12 @@ list<char> callStoryFunc()
 	auto iter = storyMap.find(storyPathList.size() == 0 ? "begin" : buildStoryKey());
 	if (iter == storyMap.end())
 	{
-		printf("ÇØ´ç ½ºÅä¸®°¡ ¾ø½À´Ï´Ù.");
+		printf("í•´ë‹¹ ìŠ¤í† ë¦¬ê°€ ì—†ìŠµë‹ˆë‹¤.");
 		return list<char>{};
 	}
 
 	system("cls");
+	print_UI_boundary();
+	setColor(white, black);
 	return (*iter->second)();
-}
-
-void SleepEx(DWORD dwMilliseconds, int* count)
-{
-	if (*count == 0)
-	{
-		Sleep(dwMilliseconds);
-	}
 }
