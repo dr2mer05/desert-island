@@ -50,4 +50,4 @@ list<char> story3_3_m();
 
 list<char> story3_3_e_1();
 list<char> story3_3_e_2();
-void story_e();
+list<char> story_e();
