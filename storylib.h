@@ -6,24 +6,28 @@
 
 using namespace std;
 
-struct status //player »óÅÂ: ¹è°íÇÄ, ¸ñ¸¶¸§, Ã¼¿Â
+typedef struct item
 {
-	int Hp;
-	int totalscore;
-};
+	int index; // print_inventory í•¨ìˆ˜ì—ì„œ ì•„ì´í…œì„ ì¶œë ¥í•˜ëŠ” ìˆœì„œ ì €ì¥
+	int cnt; // ì•„ì´í…œì˜ ê°œìˆ˜
+	string name;  // ì•„ì´í…œì˜ ì´ë¦„
+	string detail; // ì•„ì´í…œì˜ ì„¤ëª…
+	list<string> available_story; // ì•„ì´í…œì„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ìŠ¤í† ë¦¬íŒ¨ìŠ¤ì˜ ë¦¬ìŠ¤íŠ¸
+}ITEM;
 
 struct inventory
 {
-	// »ç¿ë °¡´ÉÇÑ ½ºÅä¸®ÀÇ ÀÌ¸§
-	list<string> firestone = {"2"};
-	list<string> glasses = {"2"};
-	list<string> coin = {};
-	list<string> banana = {"1_1"};
-	list<string> grapefruit = {"1_1"};
+	// ì•„ì´í…œ
+	item firestone = { 0, 1, "ë¶€ì‹¯ëŒ\0", "\0" , { "1_1","1_1_1","2" } };
+	item glasses = { 0, 1, "ì•ˆê²½\0", "\0"  ,{"2"}};
+	item coin = { 0, 3, "ë™ì „\0", "\0", {"3_2_1_1"}};
+	item banana = { 0, 0, "ë°”ë‚˜ë‚˜\0", "\0", {"1_2"}};
+	item grapefruit = { 0, 0, "ìëª½\0", "\0", {"1_2"}};
+	item fishing_rod = { 0, 0, "ë‚šì‹œëŒ€\0", "\0" ,{"3_1"}};
 };
 
-// ½ºÅä¸® ÇÔ¼ö Æ÷ÀÎÅÍ
-// ¹İÈ¯°ª : ´ÙÀ½ ½ºÅä¸®ÀÇ ¼±ÅÃÁö (¿É¼Ç°ªÀÇ List) 
+// ìŠ¤í† ë¦¬ í•¨ìˆ˜ í¬ì¸í„°
+// ë°˜í™˜ê°’ : ë‹¤ìŒ ìŠ¤í† ë¦¬ì˜ ì„ íƒì§€ (ì˜µì…˜ê°’ì˜ List) 
 typedef list<char>(*STORY_FUNC)();
 
 void addStory(string storyKey, STORY_FUNC storyFunc);
@@ -33,5 +37,3 @@ void clearStoryPath();
 void rebuildStoryPath(list<char> list);
 string buildStoryKey();
 list<char> callStoryFunc();
-
-void SleepEx(DWORD dwMilliseconds, int* count);
